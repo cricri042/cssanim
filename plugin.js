@@ -248,11 +248,12 @@ setTimeout
                         	//console.log("htmlFilter", element);
                         	// Called for each element before generating the html output.
                             // If one element is highlighted, then remove the highlight style to avoid to push it in the created html
-                            if (element.attributes.class) {
-                                if (element.attributes.class.indexOf('highlight_tag') >= 0) {
+                            //if (element.attributes.class) {
+                                if (element.hasClass('highlight_tag')) {
                                     //console.log("htmlFilter -> element:", element);
-                                    element.attributes.class = element.attributes.class.replace('highlight_tag', '');
-                                    var style = new CKEDITOR.htmlParser.cssStyle(element.attributes.style);
+                                    //element.attributes.class = element.attributes.class.replace('highlight_tag', '');
+                                	element.removeClass('highlight_tag');
+                                	var style = new CKEDITOR.htmlParser.cssStyle(element.attributes.style);
                                     style.rules["background-color"] = element.attributes['data-animation-bg'];
                                     style.rules["outline"] = element.attributes['data-animation-outline'];
                                     element.attributes.style = style.toString();
@@ -260,7 +261,7 @@ setTimeout
                                     delete element.attributes["data-animation-bg"];
                                     delete element.attributes["data-animation-outline"];
                                 }
-                            }
+                            //}
                         }
                     }
                 });
