@@ -513,6 +513,9 @@ setTimeout
                 if (foundOneAnim || (customCssFile !== "")) {
                 	// foud at least on animation or a custom defined css file, so put in in the generatde document
                     var removeAnimFunc = "";
+                    var s1 = window.location.href;
+                    var s2 = s1.replace(s1.split("/").pop(),"");
+                    var isAbsolute = new RegExp('^([a-z]+://|//)');
                     if (removeAfterLoadFunc) {
                         // remove after Load flag is ON, createthe javascript function to remove the animation after completion
                         removeAnimFunc += "function removeAnimation(event) {";
@@ -525,6 +528,9 @@ setTimeout
                     }
                     var injectCssStr = 'var cssStyle = document.createElement("style");';
                     var injectCssAnimStr = '';
+                    if (isAbsolute.test(customCssFile) === false) {
+                    	customCssFile = s2 + customCssFile;
+                    }
                     if (foundOneAnim) {
                         injectCssStr += 'cssStyle.innerHTML = ' + cssStr0 + ';';
                         injectCssStr += 'document.getElementsByTagName("head")[0].appendChild(cssStyle);';
