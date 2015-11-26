@@ -532,7 +532,12 @@ setTimeout
                     if (isAbsolute.test(customCssFile) === false) {
                     	customCssFile = s2 + customCssFile;
                     }
-                    if (foundOneAnim) {
+	                if (foundOneAnim) {
+	                    // add prefixfree
+	                    var scriptPrefixFree = new CKEDITOR.htmlParser.element('script', {
+	                        src: pluginPath + 'css/prefixfree.min.js'
+	                    });
+	                    evt.data.dataValue.add(scriptPrefixFree);  
                         injectCssStr += 'cssStyle.innerHTML = ' + cssStr0 + ';';
                         injectCssStr += 'document.getElementsByTagName("head")[0].appendChild(cssStyle);';
                         injectCssAnimStr += 'var fileref = document.createElement("link");';
