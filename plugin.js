@@ -48,33 +48,33 @@ setTimeout
 
     var allowedTagsDef = ['img', 'span', 'button', 'label', 'div', 'figure', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'section', 'video', 'table', 'tr', 'td'];
 
-    function getBrowser() {
-		var browserName;
-		var nAgt = navigator.userAgent;
-		var verOffset;
-//		console.log(navigator);
-		if ((verOffset=nAgt.indexOf("OPR/"))!=-1) {
-			 browserName = "Opera";
-			} else if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
-			 browserName = "Opera";
-			} else if ((verOffset=nAgt.indexOf("Maxthon"))!=-1) {
-			 browserName = "Maxthon";
-			} else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
-			 browserName = "Microsoft Internet Explorer";
-			} else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
-			 browserName = "Chrome";
-			} else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
-			 browserName = "Safari";
-			} else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
-			 browserName = "Firefox";
-			} else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < (verOffset=nAgt.lastIndexOf('/')) ) {
-			 browserName = nAgt.substring(nameOffset,verOffset);
-			 if (browserName.toLowerCase()==browserName.toUpperCase()) {
-			  browserName = navigator.appName;
-			 }
-			}
-		return browserName;
-    }
+//    function getBrowser() {
+//		var browserName;
+//		var nAgt = navigator.userAgent;
+//		var verOffset;
+////		console.log(navigator);
+//		if ((verOffset=nAgt.indexOf("OPR/"))!=-1) {
+//			 browserName = "Opera";
+//			} else if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
+//			 browserName = "Opera";
+//			} else if ((verOffset=nAgt.indexOf("Maxthon"))!=-1) {
+//			 browserName = "Maxthon";
+//			} else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+//			 browserName = "Microsoft Internet Explorer";
+//			} else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
+//			 browserName = "Chrome";
+//			} else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
+//			 browserName = "Safari";
+//			} else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
+//			 browserName = "Firefox";
+//			} else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < (verOffset=nAgt.lastIndexOf('/')) ) {
+//			 browserName = nAgt.substring(nameOffset,verOffset);
+//			 if (browserName.toLowerCase()==browserName.toUpperCase()) {
+//			  browserName = navigator.appName;
+//			 }
+//			}
+//		return browserName;
+//    }
     
     function removeDomainFromUrl(string) {
         var str = string.replace(/^https?:\/\/[^\/]+/i, '');
@@ -269,13 +269,15 @@ setTimeout
         beforeInit: function (/*editor*/) {
         	// add needed css files to editor
             //console.log("BEFORE INIT --- ", editor, CKEDITOR.document); // 'bar'
-            var brow = getBrowser();
-        	CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/cssanim.css');    			
-            if ((brow !== 'Maxthon') && (brow !== 'Safari')) {
-                CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontent.css');
-    		} else {
-                CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontentnotest.css');
-    		}
+//            var brow = getBrowser();
+        	CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/cssanim.css');    	
+            CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontent.css');
+
+//            if ((brow !== 'Maxthon') && (brow !== 'Safari')) {
+//                CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontentnotest.css');
+//    		} else {
+//                CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontentnotest.css');
+//    		}
         },
         afterInit: function (editor) {
             //console.log("AFTER INIT --- ", editor); 
@@ -377,7 +379,7 @@ setTimeout
             }
             // Register our dialog file -- this.path is the plugin folder path.
             CKEDITOR.dialog.add('cssanimMainDialog', this.path + 'dialogs/cssanim.min.js');
-            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.js');
+            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.min.js');
             editor.on('contentDom', function (/*e*/) {
                 //console.log("---------------- editor contentDom ---------------", e.editor.document);
 //                editor.document.on('onmousedown', function ( /*event*/ ) {
@@ -541,6 +543,7 @@ setTimeout
                         	// and the javascript function to remove 
                             removeAfterLoadFunc = true;
                             rmFuncStr += "document.getElementsByClassName('" + animClassPrefix + obj0 + "Start')[0].addEventListener('animationend', removeAnimation); ";
+                            rmFuncStr += "document.getElementsByClassName('" + animClassPrefix + obj0 + "Start')[0].addEventListener('webkitAnimationEnd', removeAnimation); ";
                         }
                         // Debug staff
                         // rmFuncStr += "console.log('Added Anim for: ',document.getElementsByClassName('" + animClassPrefix + obj0 + "Start')[0]); ";
@@ -934,11 +937,14 @@ setTimeout
                 //console.log("Duration ->", animDuration, "Delay ->", animDelay, "Iteration ->", animIter);
                 if (animName !== "none") {
                 	testDiv.style.animation = "none";
+                	testDiv.style.webkitAnimation = "none";
                     setTimeout(function() {
                         testDiv.style.animation = animName + " " + animDuration + " " + animTiming + " " + animDelay + " " + animIter + " " + animDir;
-                    }, 10);
+                        testDiv.style.webkitAnimation =  animName + " " + animDuration + " " + animTiming + " " + animDelay + " " + animIter + " " + animDir;
+                   }, 10);
                 } else {
                     testDiv.style.animation = "none";
+                	testDiv.style.webkitAnimation = "none";
                 }
             }
             if (btn.name === "clickBtn") {
@@ -961,12 +967,15 @@ setTimeout
                 //console.log("Duration ->", animDuration, "Delay ->", animDelay, "Iteration ->", animIter);
                 if (animName !== "none") {
                 	testDiv.style.animation = "none";
-                    setTimeout(function() {
+                	testDiv.style.webkitAnimation = "none";
+                  setTimeout(function() {
                         testDiv.style.animation = animName + " " + animDuration + " " + animTiming + " " + animDelay + " " + animIter + " " + animDir;
-                    }, 10);
+                        testDiv.style.webkitAnimation =  animName + " " + animDuration + " " + animTiming + " " + animDelay + " " + animIter + " " + animDir;
+                   }, 10);
                 } else {
                     testDiv.style.animation = "none";
-                }
+                	testDiv.style.webkitAnimation = "none";
+               }
             }
             if (btn.name === "loadBtn") {
                 tab = this.cssanimAddAnimDialog.querySelector('#cssanimAddAnimDialogTabLoad');
@@ -992,16 +1001,15 @@ setTimeout
                         this.style.animation = "none";
                     }, false);
                 	testDiv.style.animation = "none";
-                	var inHtml = testDiv.innerHTML;
-                	//testDiv.innerHTML = "";
+                	testDiv.style.webkitAnimation = "none";
                     setTimeout(function() {
-                    	//testDiv.offsetWidth = testDiv.offsetWidth;
-                    	//testDiv.innerHTML = inHtml;
                         testDiv.style.animation = animName + " " + animDuration + " " + animTiming + " " + animDelay + " " + animIter + " " + animDir;
-                    }, 100);
+                        testDiv.style.webkitAnimation =  animName + " " + animDuration + " " + animTiming + " " + animDelay + " " + animIter + " " + animDir;
+                    }, 10);
                 } else {
                     testDiv.style.animation = "none";
-                }
+                	testDiv.style.webkitAnimation = "none";
+               }
             }
         },
         getAvailableAnims: function () {

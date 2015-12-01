@@ -135,6 +135,14 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         var exp;
         var selected = "";
         var tdSpanColor = "black";
+//        var tabH = "";
+//        if (suffix === '_O') {
+//        	tabH = "75px;";
+//        } else if (suffix === '_C') {
+//        	tabH = "75px;";
+//        } else {
+//        	tabH = "75px;";
+//        }
         if (initVal) {
         	if (initVal.indexOf('animation-play-state') >= 0) {
         		animObj = {
@@ -161,7 +169,8 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
             animation = animObj.name;
             timingFunction = animObj.timingFunction;
         }
-        tabStr += '<table style="display:block; overflow-y=scroll; height: 75px; overflow-y: auto; width:550px;">';
+        // 75px to be changed depending on button and other !!!!
+        tabStr += '<table style="display:block; overflow-y=scroll;  overflow-y: auto; width:550px;">';
         tabStr += '<tr>';
         tabStr += '<th style="text-align: center;font-weight: bold;border: 1px solid grey;padding: 2px; width:100px;">';
         tabStr += lang.name;
@@ -284,20 +293,20 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         tabStr += "<div class=\"tab\">";
         tabStr += "<input type=\"radio\" id=\"tab-Over\" name=\"tab-group-1\" >";
         tabStr += "<label for=\"tab-Over\">" + keyOver + "<\/label>";
-        tabStr += "<div id=\"cssanimAddAnimDialogTabOver\" class=\"content\" style=\"height:85px;\">";
+        tabStr += "<div id=\"cssanimAddAnimDialogTabOver\" class=\"content\" style=\"height:55px;\">";
         initVal = (obj && obj.cdo) ? obj.cdo : null;
         tabStr += getTableHtml(allowedAnimations, '_O', null, initVal);
-        tabStr += '<div style="text-align: center; padding: 5px;">';
+        tabStr += '<div style="text-align: center; padding: 2px;">';
         tabStr += "<input type=\"button\" class=\"cssAnimButton\" value=\""+lang.testIt+" !\" name=\"overBtn\" onclick=\"CKEDITOR.plugins.cssanim.cssanimAddAnimDialogTest(this);\">";
         tabStr += "</div> ";
         tabStr += "</div> ";
         tabStr += "<div class=\"tab\">";
         tabStr += "<input type=\"radio\" id=\"tab-Click\" name=\"tab-group-1\" >";
         tabStr += "<label for=\"tab-Click\">" + keyClick + "<\/label>";
-        tabStr += "<div  id=\"cssanimAddAnimDialogTabClick\" class=\"content\" style=\"height:85px;\">";
+        tabStr += "<div  id=\"cssanimAddAnimDialogTabClick\" class=\"content\" style=\"height:55px;\">";
         initVal = (obj && obj.cdc) ? obj.cdc : null;
         tabStr += getTableHtml(allowedAnimations, '_C', null, initVal);
-        tabStr += '<div style="text-align: center; padding: 5px;">';
+        tabStr += '<div style="text-align: center; padding: 2px;">';
         tabStr += "<input type=\"button\" class=\"cssAnimButton\" value=\""+lang.testIt+" !\" name=\"clickBtn\" onclick=\"CKEDITOR.plugins.cssanim.cssanimAddAnimDialogTest(this);\">";
         tabStr += "</div> ";
         tabStr += "</div> ";
@@ -308,7 +317,7 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         initVal = (obj && obj.cds) ? obj.cds : null;
         ral = (obj) ? obj.ral : true;
         tabStr += getTableHtml(allowedAnimations, '_L', ral, initVal);
-        tabStr += '<div style="text-align: center; padding: 5px;">';
+        tabStr += '<div style="text-align: center; padding: 2px;">';
         tabStr += "<input type=\"button\" class=\"cssAnimButton\" value=\""+lang.testIt+" !\" name=\"loadBtn\" onclick=\"CKEDITOR.plugins.cssanim.cssanimAddAnimDialogTest(this);\">";
         tabStr += "</div> ";
         tabStr += "</div> ";
