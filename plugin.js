@@ -48,7 +48,34 @@ setTimeout
 
     var allowedTagsDef = ['img', 'span', 'button', 'label', 'div', 'figure', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'section', 'video', 'table', 'tr', 'td'];
 
-
+    function getBrowser() {
+		var browserName;
+		var nAgt = navigator.userAgent;
+		var verOffset;
+//		console.log(navigator);
+		if ((verOffset=nAgt.indexOf("OPR/"))!=-1) {
+			 browserName = "Opera";
+			} else if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
+			 browserName = "Opera";
+			} else if ((verOffset=nAgt.indexOf("Maxthon"))!=-1) {
+			 browserName = "Maxthon";
+			} else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+			 browserName = "Microsoft Internet Explorer";
+			} else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
+			 browserName = "Chrome";
+			} else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
+			 browserName = "Safari";
+			} else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
+			 browserName = "Firefox";
+			} else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < (verOffset=nAgt.lastIndexOf('/')) ) {
+			 browserName = nAgt.substring(nameOffset,verOffset);
+			 if (browserName.toLowerCase()==browserName.toUpperCase()) {
+			  browserName = navigator.appName;
+			 }
+			}
+		return browserName;
+    }
+    
     function removeDomainFromUrl(string) {
         var str = string.replace(/^https?:\/\/[^\/]+/i, '');
         return str;
@@ -62,6 +89,20 @@ setTimeout
     var customCssScriptTitle = "_ckAnimCustomCss_";
     var customCssFile = "";
 
+    function myGetNamedItem(elm, name) {
+    	var i;
+    	if (elm.namedItem) {
+    		return elm.namedItem(name);
+    	} else {
+        	for (i=0;i<elm.length;i++) {
+        		if (elm.item(i).name == name) {
+        			return elm.item(i);
+        	 	} 
+        	 }
+     		return null;
+    	}
+        alert ("Your browser doesn't support item or namedItem method.");
+    }
     function generateUUID() {
         var d = new Date().getTime();
 //        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -228,8 +269,13 @@ setTimeout
         beforeInit: function (/*editor*/) {
         	// add needed css files to editor
             //console.log("BEFORE INIT --- ", editor, CKEDITOR.document); // 'bar'
-            CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/cssanim.css');
-            CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontent.css');
+            var brow = getBrowser();
+        	CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/cssanim.css');    			
+            if ((brow !== 'Maxthon') && (brow !== 'Safari')) {
+                CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontent.css');
+    		} else {
+                CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontentnotest.css');
+    		}
         },
         afterInit: function (editor) {
             //console.log("AFTER INIT --- ", editor); 
@@ -331,7 +377,7 @@ setTimeout
             }
             // Register our dialog file -- this.path is the plugin folder path.
             CKEDITOR.dialog.add('cssanimMainDialog', this.path + 'dialogs/cssanim.min.js');
-            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.min.js');
+            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.js');
             editor.on('contentDom', function (/*e*/) {
                 //console.log("---------------- editor contentDom ---------------", e.editor.document);
 //                editor.document.on('onmousedown', function ( /*event*/ ) {
@@ -604,7 +650,8 @@ setTimeout
             for (i = document.styleSheets.length - 1; i >= 0; i -= 1) {
                 if ((document.styleSheets[i].href) && (document.styleSheets[i].href.indexOf("cssanim.css") >= 0)) {
                     for (j = 0; j < document.styleSheets[i].cssRules.length; j += 1) {
-                        if (document.styleSheets[i].cssRules[j].type === CSSRule.KEYFRAMES_RULE) {
+                        if ((document.styleSheets[i].cssRules[j].type === CSSRule.KEYFRAMES_RULE)
+                        	|| (document.styleSheets[i].cssRules[j].type === CSSRule.WEBKIT_KEYFRAMES_RULE)) {
                             this.allAvailableAnimsCssAnim.push(document.styleSheets[i].cssRules[j].name);
                         }
                     }
@@ -871,12 +918,15 @@ setTimeout
                 tab = this.cssanimAddAnimDialog.querySelector('#cssanimAddAnimDialogTabOver');
                 sel = tab.getElementsByTagName('select');
                 inp = tab.getElementsByTagName('input');
-                animName = sel.namedItem('anim_O').selectedOptions[0].value;
-                animTiming = sel.namedItem('timing_O').selectedOptions[0].value;
-                animDir = sel.namedItem('direction_O').selectedOptions[0].value;
-                animDuration = inp.namedItem('duration_O').value + "s";
-                animDelay = inp.namedItem('delay_O').value + "s";
-                animIter = inp.namedItem('iteration_O').value;
+//                animName = myGetNamedItem(sel,'anim_O').selectedOptions[0].value;
+//                animTiming = myGetNamedItem(sel,'timing_O').selectedOptions[0].value;
+//                animDir = myGetNamedItem(sel,'direction_O').selectedOptions[0].value;
+                animName = myGetNamedItem(sel,'anim_O').value;
+                animTiming = myGetNamedItem(sel,'timing_O').value;
+                animDir = myGetNamedItem(sel,'direction_O').value;
+                animDuration = myGetNamedItem(inp,'duration_O').value + "s";
+                animDelay = myGetNamedItem(inp,'delay_O').value + "s";
+                animIter = myGetNamedItem(inp,'iteration_O').value;
                 if (animIter === "0") {
                     animIter = "infinite";
                 }
@@ -895,12 +945,15 @@ setTimeout
                 tab = this.cssanimAddAnimDialog.querySelector('#cssanimAddAnimDialogTabClick');
                 sel = tab.getElementsByTagName('select');
                 inp = tab.getElementsByTagName('input');
-                animName = sel.namedItem('anim_C').selectedOptions[0].value;
-                animTiming = sel.namedItem('timing_C').selectedOptions[0].value;
-                animDir = sel.namedItem('direction_C').selectedOptions[0].value;
-                animDuration = inp.namedItem('duration_C').value + "s";
-                animDelay = inp.namedItem('delay_C').value + "s";
-                animIter = inp.namedItem('iteration_C').value;
+//                animName = myGetNamedItem(sel,'anim_C').selectedOptions[0].value;
+//                animTiming = myGetNamedItem(sel,'timing_C').selectedOptions[0].value;
+//                animDir = myGetNamedItem(sel,'direction_C').selectedOptions[0].value;
+                animName = myGetNamedItem(sel,'anim_C').value;
+                animTiming = myGetNamedItem(sel,'timing_C').value;
+                animDir = myGetNamedItem(sel,'direction_C').value;
+                animDuration = myGetNamedItem(inp,'duration_C').value + "s";
+                animDelay = myGetNamedItem(inp,'delay_C').value + "s";
+                animIter = myGetNamedItem(inp,'iteration_C').value;
                 if (animIter === "0") {
                     animIter = "infinite";
                 }
@@ -919,12 +972,15 @@ setTimeout
                 tab = this.cssanimAddAnimDialog.querySelector('#cssanimAddAnimDialogTabLoad');
                 sel = tab.getElementsByTagName('select');
                 inp = tab.getElementsByTagName('input');
-                animName = sel.namedItem('anim_L').selectedOptions[0].value;
-                animTiming = sel.namedItem('timing_L').selectedOptions[0].value;
-                animDir = sel.namedItem('direction_L').selectedOptions[0].value;
-                animDuration = inp.namedItem('duration_L').value + "s";
-                animDelay = inp.namedItem('delay_L').value + "s";
-                animIter = inp.namedItem('iteration_L').value;
+//                animName = myGetNamedItem(sel,'anim_L').selectedOptions[0].value;
+//                animTiming = myGetNamedItem(sel,'timing_L').selectedOptions[0].value;
+//                animDir = myGetNamedItem(sel,'direction_L').selectedOptions[0].value;
+                animName = myGetNamedItem(sel,'anim_L').value;
+                animTiming = myGetNamedItem(sel,'timing_L').value;
+                animDir = myGetNamedItem(sel,'direction_L').value;
+                animDuration = myGetNamedItem(inp,'duration_L').value + "s";
+                animDelay = myGetNamedItem(inp,'delay_L').value + "s";
+                animIter = myGetNamedItem(inp,'iteration_L').value;
                 if (animIter === "0") {
                     animIter = "infinite";
                 }
@@ -936,9 +992,13 @@ setTimeout
                         this.style.animation = "none";
                     }, false);
                 	testDiv.style.animation = "none";
+                	var inHtml = testDiv.innerHTML;
+                	//testDiv.innerHTML = "";
                     setTimeout(function() {
+                    	//testDiv.offsetWidth = testDiv.offsetWidth;
+                    	//testDiv.innerHTML = inHtml;
                         testDiv.style.animation = animName + " " + animDuration + " " + animTiming + " " + animDelay + " " + animIter + " " + animDir;
-                    }, 10);
+                    }, 100);
                 } else {
                     testDiv.style.animation = "none";
                 }
@@ -994,7 +1054,8 @@ setTimeout
                 for (i = document.styleSheets.length - 1; i >= 0; i-=1) {
                     if (document.styleSheets[i].title === 'cssCustom') {
                         for (j = 0; j < document.styleSheets[i].cssRules.length; j += 1) {
-                            if (document.styleSheets[i].cssRules[j].type === CSSRule.KEYFRAMES_RULE) {
+                            if ((document.styleSheets[i].cssRules[j].type === CSSRule.KEYFRAMES_RULE) 
+                            	|| (document.styleSheets[i].cssRules[j].type === CSSRule.WEBKIT_KEYFRAMES_RULE)){
                             	if (tmpArr.indexOf(document.styleSheets[i].cssRules[j].name) < 0) {
 	                                liStr = '<li>' + document.styleSheets[i].cssRules[j].name + '</li>';
 	                                cssAnims.push(document.styleSheets[i].cssRules[j].name);

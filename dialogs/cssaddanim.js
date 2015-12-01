@@ -240,6 +240,16 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         return tabStr;
     }
 
+    function getItemByName(elm, name) {
+    	var i;
+    	for (i=0;i<elm.$.length;i++) {
+    		if (elm.$[i].name == name) {
+    			return new CKEDITOR.dom.node(elm.$[i]);
+    	 	} 
+    	 }
+ 		return null;
+    }
+
     function getHtml(elem, allowedAnimations) {
         var obj = null;
         var jsonObj;
@@ -303,9 +313,11 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         tabStr += "</div> ";
         tabStr += "</div> ";
         tabStr += "</div>";
-        var html = '<link rel="stylesheet" href="./ckeditor/plugins/cssanim/css/cssanim.css">' + '<style type="text/css">' + '.cke_cssanim_container' + '{' + 'color:#000 !important;' + 'padding:10px 10px 0;' + 'margin-top:5px;' + 'text-align: center;' + '}' + '.cke_cssanim_container p' + '{' + 'margin: 0 0 10px;' + '}' +
+ //       var prefixFree = "<script src=\"./ckeditor/plugins/cssanim/css/prefixfree.min.js\"></script>";
+        var html ='<link rel="stylesheet" href="./ckeditor/plugins/cssanim/css/cssanim.css">' + '<style type="text/css">' + '.cke_cssanim_container' + '{' + 'color:#000 !important;' + 'padding:10px 10px 0;' + 'margin-top:5px;' + 'text-align: center;' + '}' + '.cke_cssanim_container p' + '{' + 'margin: 0 0 10px;' + '}' +
             '</style>' + '<div class="cke_cssanim_container">' + '<div class="cke_cssanim_container_div" style="text-align: center; border: 1px solid grey; width:50%;margin-left: auto;margin-right: auto;">' +
             '<img class="cke_cssanim_container_img" src="' + imagePath + '" alt="CSS Animation" style="border: 1px solid grey; padding: 5px; margin: 10px;">' + '</div>' + '<br><br>' + '<p id="elemName" style="font-weight:bold;font-size: larger;text-align: -webkit-center;">' + 'Animation '+lang.forStr+' : ' + attachedElem.getName() + '</p>' + '<br>' + tabStr + '</div>';
+ //       html +=  prefixFree;
         return html;
     }
     return {
@@ -353,51 +365,51 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
                     res.animOver = null;
                     res.ral = false;
                     // get OnLoad data
-                    animation = selects.getItem('anim_L').getValue();
+                    animation = getItemByName(selects, 'anim_L').getValue();
                     var animIter;
                     if (animation !== 'none') {
                         res.animStart = animation + " ";
-                        res.animStart += inputs.getItem('duration_L').getValue() + "s ";
-                        res.animStart += selects.getItem('timing_L').getValue() + " ";
-                        res.animStart += inputs.getItem('delay_L').getValue() + "s ";
-                        animIter = inputs.getItem('iteration_L').getValue();
+                        res.animStart += getItemByName(inputs, 'duration_L').getValue() + "s ";
+                        res.animStart += getItemByName(selects, 'timing_L').getValue() + " ";
+                        res.animStart += getItemByName(inputs, 'delay_L').getValue() + "s ";
+                        animIter = getItemByName(inputs, 'iteration_L').getValue();
                         if (animIter === "0") {
                             animIter = "infinite";
                         }
                         res.animStart += animIter + " ";
-                        res.animStart += selects.getItem('direction_L').getValue();
+                        res.animStart += getItemByName(selects, 'direction_L').getValue();
                         // Now RAL
-                        if ((inputs.getItem('rmAfterLoad').$.checked) && (animIter !== 'infinite')) {
+                        if ((getItemByName(inputs, 'rmAfterLoad').$.checked) && (animIter !== 'infinite')) {
                         	res.ral = true;
                         }
                     }
                     // get OnClick data
-                    animation = selects.getItem('anim_C').getValue();
+                    animation = getItemByName(selects, 'anim_C').getValue();
                     if (animation !== 'none') {
                         res.animClick = animation + " ";
-                        res.animClick += inputs.getItem('duration_C').getValue() + "s ";
-                        res.animClick += selects.getItem('timing_C').getValue() + " ";
-                        res.animClick += inputs.getItem('delay_C').getValue() + "s ";
-                        animIter = inputs.getItem('iteration_C').getValue();
+                        res.animClick += getItemByName(inputs, 'duration_C').getValue() + "s ";
+                        res.animClick += getItemByName(selects, 'timing_C').getValue() + " ";
+                        res.animClick += getItemByName(inputs, 'delay_C').getValue() + "s ";
+                        animIter = getItemByName(inputs, 'iteration_C').getValue();
                         if (animIter === "0") {
                             animIter = "infinite";
                         }
                         res.animClick += animIter + " ";
-                        res.animClick += selects.getItem('direction_C').getValue();
+                        res.animClick += getItemByName(selects, 'direction_C').getValue();
                     }
                     // get OnHover data
-                    animation = selects.getItem('anim_O').getValue();
+                    animation = getItemByName(selects, 'anim_O').getValue();
                     if (animation !== 'none') {
                         res.animOver = animation + " ";
-                        res.animOver += inputs.getItem('duration_O').getValue() + "s ";
-                        res.animOver += selects.getItem('timing_O').getValue() + " ";
-                        res.animOver += inputs.getItem('delay_O').getValue() + "s ";
-                        animIter = inputs.getItem('iteration_O').getValue();
+                        res.animOver += getItemByName(inputs, 'duration_O').getValue() + "s ";
+                        res.animOver += getItemByName(selects,'timing_O').getValue() + " ";
+                        res.animOver += getItemByName(inputs, 'delay_O').getValue() + "s ";
+                        animIter = getItemByName(inputs, 'iteration_O').getValue();
                         if (animIter === "0") {
                             animIter = "infinite";
                         }
                         res.animOver += animIter + " ";
-                        res.animOver += selects.getItem('direction_O').getValue();
+                        res.animOver += getItemByName(selects, 'direction_O').getValue();
                     }
                     //console.log(inputs, selects, res);
                     CKEDITOR.plugins.cssanim.runAddAnimElem(attachedElem, res);
@@ -419,11 +431,11 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
             var inputs = dial.getInputElement();
             var elms = inputs.getElementsByTag('select');
             var elm;
-            elm = elms.getItem('anim_L');
+            elm = getItemByName(elms, 'anim_L');
             animSelectionChange(elm.$);
-            elm = elms.getItem('anim_C');
+            elm = getItemByName(elms, 'anim_C');
             animSelectionChange(elm.$);
-            elm = elms.getItem('anim_O');
+            elm = getItemByName(elms, 'anim_O');
             animSelectionChange(elm.$);
 
         },

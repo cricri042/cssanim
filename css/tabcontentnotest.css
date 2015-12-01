@@ -1,0 +1,23 @@
+.tabs {
+	width: initial;
+	height: 250px;
+}
+.tab {
+}
+.tab label {
+	font-weight: bold;
+}
+.tab [type=radio] {
+  display: none;   
+}
+.content {
+	height: 50px !important;
+  left: 0;
+  background: white;
+  right: 0;
+  bottom: 0;
+  padding: 0px;
+}
+.cssAnimButton {
+	display: none !important;
+}

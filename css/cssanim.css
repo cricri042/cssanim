@@ -1850,6 +1850,21 @@ Copyright (c) 2015 Daniel Eden
   }
 }
 
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+
+  to {
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
 @keyframes rotate {
   from {
     -webkit-transform-origin: center;
