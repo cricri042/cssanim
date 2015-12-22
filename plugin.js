@@ -385,32 +385,32 @@ setTimeout
 //                editor.document.on('onmousedown', function ( /*event*/ ) {
 //                    //console.log("onmousedown");
 //                });
-                editor.document.on('click', function (event) {
-                    //console.log("click", event);
-                	CKEDITOR.plugins.cssanim.cleanHighlight();
-                    // Here some hack to try to have firefox handling right click the same as chrome or edge !!
-                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-                        var target = event.data.$.target;
-                        var sel;
-                        // FAKE ELEMENTS OLD CODE
-                        ////	          if ( target.dataset.ckeRealElementType !==  undefined) {
-                        //	        	  console.log("FAKE !! FAKE !! FAKE !! FAKE !! FAKE !! ");
-                        //	  	          var realElem = CKEDITOR.dom.element.createFromHtml(decodeURIComponent(
-                        //	  	        		target.dataset.ckeRealelement ), editor.document );
-                        //	  		      console.log("realElem", realElem);
-                        //		          //sel = new CKEDITOR.dom.selection(realElem);
-                        //		          sel = editor.getSelection();
-                        //		          sel.selectElement(realElem);
-                        //	          } else {
-                        var elem = new CKEDITOR.dom.element(target);
-                        //sel = new CKEDITOR.dom.selection(elem);
-                        // force selection of the 'under cursor' element
-                        sel = editor.getSelection();
-                        sel.selectElement(elem);
-                        //	          }
-                        //console.log("selection:", sel, elem);
-                    }
-                });
+//                editor.document.on('click', function (event) {
+//                    //console.log("click", event);
+//                	CKEDITOR.plugins.cssanim.cleanHighlight();
+//                    // Here some hack to try to have firefox handling right click the same as chrome or edge !!
+//                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+//                        var target = event.data.$.target;
+//                        var sel;
+//                        // FAKE ELEMENTS OLD CODE
+//                        ////	          if ( target.dataset.ckeRealElementType !==  undefined) {
+//                        //	        	  console.log("FAKE !! FAKE !! FAKE !! FAKE !! FAKE !! ");
+//                        //	  	          var realElem = CKEDITOR.dom.element.createFromHtml(decodeURIComponent(
+//                        //	  	        		target.dataset.ckeRealelement ), editor.document );
+//                        //	  		      console.log("realElem", realElem);
+//                        //		          //sel = new CKEDITOR.dom.selection(realElem);
+//                        //		          sel = editor.getSelection();
+//                        //		          sel.selectElement(realElem);
+//                        //	          } else {
+//                        var elem = new CKEDITOR.dom.element(target);
+//                        //sel = new CKEDITOR.dom.selection(elem);
+//                        // force selection of the 'under cursor' element
+//                        sel = editor.getSelection();
+//                        sel.selectElement(elem);
+//                        //	          }
+//                        //console.log("selection:", sel, elem);
+//                    }
+//                });
                 // Ini document editor
                 CKEDITOR.plugins.cssanim.init(editor);
                 CKEDITOR.plugins.cssanim.getCustomCss(editor.config.customCssFilePath);
