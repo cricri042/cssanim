@@ -271,7 +271,7 @@ setTimeout
             //console.log("BEFORE INIT --- ", editor, CKEDITOR.document); // 'bar'
 //            var brow = getBrowser();
         	CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/cssanim.css');    	
-            CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontent.css');
+//            CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontent.css');
 
 //            if ((brow !== 'Maxthon') && (brow !== 'Safari')) {
 //                CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontentnotest.css');
