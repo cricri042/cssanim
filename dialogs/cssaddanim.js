@@ -45,14 +45,14 @@ function animSelectionChange(obj) {
 		if ((anim_l_obj.value === "none") && (anim_c_obj.value === "cssAnimPause")) {
 			alert(lang.pbOnClickOnLoadNone);
 			anim_c_obj.selectedIndex = selectList_cache;
-			return;			
+			return;
 		}
 	}
 	if (obj.name === "anim_O") {
 		if ((anim_l_obj.value === "none") && (anim_o_obj.value === "cssAnimPause")) {
 			alert(lang.pbOnOverOnLoadNone);
 			anim_o_obj.selectedIndex = selectList_cache;
-			return;			
+			return;
 		}
 	}
 	if ((obj.value === 'cssAnimPause') || (obj.value === 'none')) {
@@ -155,7 +155,7 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         	        };
         	} else {
 	            exp = initVal.replace('{animation:', '').replace('}', '').replace(';', '').trim();
-	            animObj = parseCSS3AnimationShorthand(exp);    		
+	            animObj = parseCSS3AnimationShorthand(exp);
         	}
             //console.log("initVal animObj ------------->", exp, animObj);
             delay = animObj.delay / 1000;
@@ -254,7 +254,7 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
     	for (i=0;i<elm.$.length;i++) {
     		if (elm.$[i].name == name) {
     			return new CKEDITOR.dom.node(elm.$[i]);
-    	 	} 
+    	 	}
     	 }
  		return null;
     }
@@ -291,8 +291,9 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         var initVal, ral;
         tabStr += "<div class=\"tabs\" style=\"width:600px;\">";
         tabStr += "<div class=\"tab\">";
-        tabStr += "<input type=\"radio\" id=\"tab-Over\" name=\"tab-group-1\" >";
-        tabStr += "<label for=\"tab-Over\">" + keyOver + "<\/label>";
+//        tabStr += "<input type=\"radio\" id=\"tab-Over\" name=\"tab-group-1\" >";
+//        tabStr += "<label for=\"tab-Over\">" + keyOver + "<\/label>";
+        tabStr += "<span style=\"font-weight:bold; font-size: larger;\">" + keyOver + "<\/span>";
         tabStr += "<div id=\"cssanimAddAnimDialogTabOver\" class=\"content\" style=\"height:55px;\">";
         initVal = (obj && obj.cdo) ? obj.cdo : null;
         tabStr += getTableHtml(allowedAnimations, '_O', null, initVal);
@@ -301,8 +302,9 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         tabStr += "</div> ";
         tabStr += "</div> ";
         tabStr += "<div class=\"tab\">";
-        tabStr += "<input type=\"radio\" id=\"tab-Click\" name=\"tab-group-1\" >";
-        tabStr += "<label for=\"tab-Click\">" + keyClick + "<\/label>";
+//        tabStr += "<input type=\"radio\" id=\"tab-Click\" name=\"tab-group-1\" >";
+//        tabStr += "<label for=\"tab-Click\">" + keyClick + "<\/label>";
+        tabStr += "<span style=\"font-weight:bold;font-size: larger;\">" + keyClick + "<\/span>";
         tabStr += "<div  id=\"cssanimAddAnimDialogTabClick\" class=\"content\" style=\"height:55px;\">";
         initVal = (obj && obj.cdc) ? obj.cdc : null;
         tabStr += getTableHtml(allowedAnimations, '_C', null, initVal);
@@ -311,8 +313,9 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         tabStr += "</div> ";
         tabStr += "</div> ";
         tabStr += "<div class=\"tab\">";
-        tabStr += "<input type=\"radio\" id=\"tab-Load\" name=\"tab-group-1\" checked>";
-        tabStr += "<label for=\"tab-Load\">" + keyLoad + "<\/label>";
+//        tabStr += "<input type=\"radio\" id=\"tab-Load\" name=\"tab-group-1\" checked>";
+//        tabStr += "<label for=\"tab-Load\">" + keyLoad + "<\/label>";
+        tabStr += "<span style=\"font-weight:bold;font-size: larger;\">" + keyLoad + "<\/span>";
         tabStr += "<div  id=\"cssanimAddAnimDialogTabLoad\" class=\"content\" style=\"height:85px;\">";
         initVal = (obj && obj.cds) ? obj.cds : null;
         ral = (obj) ? obj.ral : true;

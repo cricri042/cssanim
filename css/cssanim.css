@@ -15,6 +15,16 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2015 Daniel Eden
 */
+
+.cssAnimButton {
+display: initial;
+border: 1px solid black;
+padding: 2px;
+background-color: lightblue;
+border-radius: 3px;
+font-weight: bold;
+}
+
 @-webkit-keyframes bounce {
   from, 20%, 53%, 80%, to {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);

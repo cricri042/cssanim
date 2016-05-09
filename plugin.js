@@ -1,9 +1,9 @@
-/**
+﻿/**
  * Copyright (c) 2014, CKSource - Frederico Knabben. All rights reserved.
  * Licensed under the terms of the MIT License (see LICENSE.md).
- * 
+ *
  * Plugin to add CSS animations on elements into the CKEditor editing area.
- * 
+ *
  */
 /*
 JSLint Global variables :
@@ -75,7 +75,7 @@ setTimeout
 //			}
 //		return browserName;
 //    }
-    
+
     function removeDomainFromUrl(string) {
         var str = string.replace(/^https?:\/\/[^\/]+/i, '');
         return str;
@@ -97,7 +97,7 @@ setTimeout
         	for (i=0;i<elm.length;i++) {
         		if (elm.item(i).name == name) {
         			return elm.item(i);
-        	 	} 
+        	 	}
         	 }
      		return null;
     	}
@@ -270,7 +270,7 @@ setTimeout
         	// add needed css files to editor
             //console.log("BEFORE INIT --- ", editor, CKEDITOR.document); // 'bar'
 //            var brow = getBrowser();
-        	CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/cssanim.css');    	
+        	CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/cssanim.css');
 //            CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'plugins/cssanim/css/tabcontent.css');
 
 //            if ((brow !== 'Maxthon') && (brow !== 'Safari')) {
@@ -280,7 +280,7 @@ setTimeout
 //    		}
         },
         afterInit: function (editor) {
-            //console.log("AFTER INIT --- ", editor); 
+            //console.log("AFTER INIT --- ", editor);
             var dataProcessor = editor.dataProcessor;
             var htmlFilter = dataProcessor && dataProcessor.htmlFilter;
 //                dataFilter = dataProcessor && dataProcessor.dataFilter;
@@ -333,7 +333,7 @@ setTimeout
             var config = CKEDITOR.tools.extend(defaultConfig, editor.config.cssanim || {}, true);
             editor.config.onLoadAllowedTags = config.acceptedTags.sort();
             editor.config.onLoadAllowedAnimations = config.acceptedAnimations;
-            
+
             editor.config.allowedTags = editor.config.onLoadAllowedTags;	// may be filtered in main dialog
             editor.config.allowedAnimations = editor.config.onLoadAllowedAnimations;
             editor.config.highlightBGColor = config.highlightBGColor;	// may be changed in main dialog
@@ -348,7 +348,7 @@ setTimeout
             editor.addCommand('_myLaunchAddAnimDialog', cssanimAddAnim);
             var cssanimMain = new CKEDITOR.dialogCommand('cssanimMainDialog', {
                 // Allow ckAnimClass class with data-aniomation attributes.
-            	// Addinionaly allowed 'button' and 'span' (as they seems to be filtered by ckeditor default) 
+            	// Addinionaly allowed 'button' and 'span' (as they seems to be filtered by ckeditor default)
                 allowedContent: 'button;span;div{*};*[id,data-animation*](ckAnimClass*)'
             });
             editor.addCommand('cssanim', cssanimMain);
@@ -413,7 +413,9 @@ setTimeout
 //                });
                 // Ini document editor
                 CKEDITOR.plugins.cssanim.init(editor);
-                CKEDITOR.plugins.cssanim.getCustomCss(editor.config.customCssFilePath);
+                if (editor.config.customCssFilePath) {
+	                 CKEDITOR.plugins.cssanim.getCustomCss(editor.config.customCssFilePath);
+                }
             });
 //            editor.on('customConfigLoaded', function (e) {
 //                //console.log("---------------- editor customConfigLoaded ---------------", e.editor.document);
@@ -465,15 +467,15 @@ setTimeout
 //            	end = long.length - x + 1;
 //            	var diff = long.substring(start, end);
 //            	console.log("diff -------->",diff);
-//            	var re = /data-animation="([^"]*)/; 
-//            	var re = /(data-animation=")([^"]*)/g; 
+//            	var re = /data-animation="([^"]*)/;
+//            	var re = /(data-animation=")([^"]*)/g;
 //            	var m;
 //            	var obj;
 //            	while ((m = re.exec(diff)) !== null) {
 //            	    if (m.index === re.lastIndex) {
 //            	        re.lastIndex++;
 //            	    }
-//            	    if (m.length > 2) {               	    	
+//            	    if (m.length > 2) {
 //            	    	console.log("found:", m.length, m[2]);
 //                        obj = decodeURIComponent(m[2]);
 //                        obj = JSON.parse(obj);
@@ -539,8 +541,8 @@ setTimeout
                         cssStr0 += cssAnimationObject[obj0].css;
                         cssStr0 += cssAnimationObject[obj0].cds;
                         if (cssAnimationObject[obj0].ral) {
-                            // remove after Load flag is ON, create the javascript listener for end of animation 
-                        	// and the javascript function to remove 
+                            // remove after Load flag is ON, create the javascript listener for end of animation
+                        	// and the javascript function to remove
                             removeAfterLoadFunc = true;
                             rmFuncStr += "document.getElementsByClassName('" + animClassPrefix + obj0 + "Start')[0].addEventListener('animationend', removeAnimation); ";
                             rmFuncStr += "document.getElementsByClassName('" + animClassPrefix + obj0 + "Start')[0].addEventListener('webkitAnimationEnd', removeAnimation); ";
@@ -586,7 +588,7 @@ setTimeout
 	                    var scriptPrefixFree = new CKEDITOR.htmlParser.element('script', {
 	                        src: pluginPath + 'css/prefixfree.min.js'
 	                    });
-	                    evt.data.dataValue.add(scriptPrefixFree);  
+	                    evt.data.dataValue.add(scriptPrefixFree);
                         injectCssStr += 'cssStyle.innerHTML = ' + cssStr0 + ';';
                         injectCssStr += 'document.getElementsByTagName("head")[0].appendChild(cssStyle);';
                         injectCssAnimStr += 'var fileref = document.createElement("link");';
@@ -759,8 +761,8 @@ setTimeout
 //                    //	        if (realElem.$.id === '') {
 //                    //	          idCnt += 1;
 //                    //	          realElem.$.id = animIdPrefix+idCnt;
-//                    //	        }    
-//                    //	        elem.id = realElem.$.id;       
+//                    //	        }
+//                    //	        elem.id = realElem.$.id;
 //                    //	        realElem.$.classList.add(animClassPrefix+realElem.$.id);
 //                    //	        cssAnimationObject[realElem.$.id] = {};
 //                    //	        cssObj = cssAnimationObject[realElem.$.id];
@@ -794,7 +796,7 @@ setTimeout
                 elem.removeClass(animClassPrefix);
                 elem.removeClass(animClassPrefix + elem.getId());
                 elem.removeClass(animClassPrefix + elem.getId() + 'Start');
-                // add the new one 
+                // add the new one
                 elem.addClass(animClassPrefix);
                 elem.addClass(animClassPrefix + elem.getId());
                 cssObj = {};
@@ -808,17 +810,17 @@ setTimeout
                 if (animOver) {
                     cssObj.cso = '.' + animClassPrefix + elem.getId() + ':hover';
                     if ((animOver.indexOf('cssAnimPause') >= 0) || (animOver.indexOf('animation-play-state') >= 0)) {
-                    	cssObj.cdo = "{animation-play-state: paused" + ";}";                   	
+                    	cssObj.cdo = "{animation-play-state: paused" + ";}";
                     } else {
-                        cssObj.cdo = "{animation: " + animOver + ";}";              	
+                        cssObj.cdo = "{animation: " + animOver + ";}";
                     }
                 }
                 if (animClick) {
                     cssObj.csc = '.' + animClassPrefix + elem.getId() + ':active';
                     if ((animClick.indexOf('cssAnimPause') >= 0) || (animClick.indexOf('animation-play-state') >= 0)) {
-                    	cssObj.cdc = "{animation-play-state: paused" + ";}";                   	
+                    	cssObj.cdc = "{animation-play-state: paused" + ";}";
                     } else {
-                        cssObj.cdc = "{animation: " + animClick + ";}";              	
+                        cssObj.cdc = "{animation: " + animClick + ";}";
                     }
                 }
                 //console.log("runAddAnimElem cssObj ------------>", cssObj);
@@ -1062,7 +1064,7 @@ setTimeout
                 for (i = document.styleSheets.length - 1; i >= 0; i-=1) {
                     if (document.styleSheets[i].title === 'cssCustom') {
                         for (j = 0; j < document.styleSheets[i].cssRules.length; j += 1) {
-                            if ((document.styleSheets[i].cssRules[j].type === CSSRule.KEYFRAMES_RULE) 
+                            if ((document.styleSheets[i].cssRules[j].type === CSSRule.KEYFRAMES_RULE)
                             	|| (document.styleSheets[i].cssRules[j].type === CSSRule.WEBKIT_KEYFRAMES_RULE)){
                             	if (tmpArr.indexOf(document.styleSheets[i].cssRules[j].name) < 0) {
 	                                liStr = '<li>' + document.styleSheets[i].cssRules[j].name + '</li>';
@@ -1153,14 +1155,18 @@ setTimeout
            }
             if (Object.prototype.toString.apply(obj) === "[object String]") {
                 cssFile = obj.trim();
-                //console.log(" +++++++++++++++++++++ getCustomCss From Main :", cssFile);
+//                console.log(" +++++++++++++++++++++ getCustomCss From Main :", cssFile);
                 obj = null;
             } else {
                 divRes = obj.querySelector("#cssResultsDiv");
                 divRes.innerHTML = "";
                 divRes.style.display = "none";
-                cssFile = divRes.parentElement.elements['cssName'].value.trim();
-                //console.log(" +++++++++++++++++++++ getCustomCss From Popup :", cssFile);
+                if (divRes.parentElement.elements['cssName'].value !== "undefined") {
+                	cssFile = divRes.parentElement.elements['cssName'].value.trim();
+                } else {
+                	cssFile = "";
+                }
+//                console.log(" +++++++++++++++++++++ getCustomCss From Popup :", cssFile);
             }
             var ext = cssFile.substr(cssFile.lastIndexOf('.') + 1);
             //console.log("ext", ext);
@@ -1193,7 +1199,8 @@ setTimeout
                 //    		//console.log("checkAnimValidity resArray ----> ", res);
                 return;
             }
-            if (ext !== "css") {
+            var lang = CKEDITOR.plugins.cssanim.ckEditor.lang.cssanim;
+           if (ext !== "css") {
                 alert(lang.fileSpecified + cssFile + lang.fileExtInvalid);
                 return;
             }
@@ -1205,7 +1212,7 @@ setTimeout
             var www = this.documentEditor.getBody();
             www.setStyle('backgroundColor', 'Gainsboro ');
             //www.setStyle('backgroundImage', 'url(bg.jpg)');
-            
+
             var oReq = new XMLHttpRequest();
             //    	oReq.addEventListener("load", transferComplete, false);
             //    	oReq.addEventListener("error", transferFailed, false);
