@@ -379,7 +379,7 @@ setTimeout
             }
             // Register our dialog file -- this.path is the plugin folder path.
             CKEDITOR.dialog.add('cssanimMainDialog', this.path + 'dialogs/cssanim.min.js');
-            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.js');
+            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.min.js');
             editor.on('contentDom', function (/*e*/) {
                 // Ini document editor
                 CKEDITOR.plugins.cssanim.init(editor);
