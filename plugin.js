@@ -379,116 +379,14 @@ setTimeout
             }
             // Register our dialog file -- this.path is the plugin folder path.
             CKEDITOR.dialog.add('cssanimMainDialog', this.path + 'dialogs/cssanim.min.js');
-            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.min.js');
+            CKEDITOR.dialog.add('cssanimAddAnimDialog', this.path + 'dialogs/cssaddanim.js');
             editor.on('contentDom', function (/*e*/) {
-                //console.log("---------------- editor contentDom ---------------", e.editor.document);
-//                editor.document.on('onmousedown', function ( /*event*/ ) {
-//                    //console.log("onmousedown");
-//                });
-//                editor.document.on('click', function (event) {
-//                    //console.log("click", event);
-//                	CKEDITOR.plugins.cssanim.cleanHighlight();
-//                    // Here some hack to try to have firefox handling right click the same as chrome or edge !!
-//                    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-//                        var target = event.data.$.target;
-//                        var sel;
-//                        // FAKE ELEMENTS OLD CODE
-//                        ////	          if ( target.dataset.ckeRealElementType !==  undefined) {
-//                        //	        	  console.log("FAKE !! FAKE !! FAKE !! FAKE !! FAKE !! ");
-//                        //	  	          var realElem = CKEDITOR.dom.element.createFromHtml(decodeURIComponent(
-//                        //	  	        		target.dataset.ckeRealelement ), editor.document );
-//                        //	  		      console.log("realElem", realElem);
-//                        //		          //sel = new CKEDITOR.dom.selection(realElem);
-//                        //		          sel = editor.getSelection();
-//                        //		          sel.selectElement(realElem);
-//                        //	          } else {
-//                        var elem = new CKEDITOR.dom.element(target);
-//                        //sel = new CKEDITOR.dom.selection(elem);
-//                        // force selection of the 'under cursor' element
-//                        sel = editor.getSelection();
-//                        sel.selectElement(elem);
-//                        //	          }
-//                        //console.log("selection:", sel, elem);
-//                    }
-//                });
                 // Ini document editor
                 CKEDITOR.plugins.cssanim.init(editor);
                 if (editor.config.customCssFilePath) {
 	                 CKEDITOR.plugins.cssanim.getCustomCss(editor.config.customCssFilePath);
                 }
             });
-//            editor.on('customConfigLoaded', function (e) {
-//                //console.log("---------------- editor customConfigLoaded ---------------", e.editor.document);
-//            });
-//            editor.on('dataReady', function (e) {
-//                //console.log("---------------- editor dataReady ---------------", e.editor.document);
-//            });
-//            editor.on('instanceReady', function (e) {
-//                //console.log("---------------- editor instanceReady ---------------", e.editor.document);
-//            });
-//            editor.on('loaded', function (e) {
-//                //console.log("---------------- editor loaded ---------------", e.editor.document);
-//            });
-//            editor.on('change', function (e) {
-//                console.log("---------------- editor change ---------------", e);
-//                var snap = editor.getSnapshot();
-//                var prevSnap = editor._.previousValue;
-//                editor.resetDirty();
-//                var x, start, end, msg;
-//                var short, long;
-//	            if (snap.length < prevSnap.length) {
-//	            	msg = "DELETED";
-//	            	short = snap;
-//	            	long = prevSnap;
-//	            } else {
-//	            	msg = "ADDED";
-//	            	short = prevSnap;
-//	            	long = snap;
-//	            }
-//            	console.log(long.length, long);
-//            	console.log(short.length, short);
-//            	// get the first mismatch index
-//            	for(x=0; x<long.length; x+=1){
-//         		   if(long[x] !== short[x]){
-//         		      start = x;
-//         		      break;
-//         		   }
-//         		}
-//            	// get the last mismatch index
-//            	var s, e;
-//            	for(x=0; x<(long.length - start) ; x+=1){
-//            		e =  short.length - x;
-//            		s = long.length -x;
-//         		   if(long[s] !== short[e]){
-//         		      end = x;
-//         		      break;
-//         		   }
-//         		}
-//            	end = long.length - x + 1;
-//            	var diff = long.substring(start, end);
-//            	console.log("diff -------->",diff);
-//            	var re = /data-animation="([^"]*)/;
-//            	var re = /(data-animation=")([^"]*)/g;
-//            	var m;
-//            	var obj;
-//            	while ((m = re.exec(diff)) !== null) {
-//            	    if (m.index === re.lastIndex) {
-//            	        re.lastIndex++;
-//            	    }
-//            	    if (m.length > 2) {
-//            	    	console.log("found:", m.length, m[2]);
-//                        obj = decodeURIComponent(m[2]);
-//                        obj = JSON.parse(obj);
-//            	    	console.log("WARNING " + msg + ":", obj);
-//            	    }
-//            	}
-//            });
-            //    editor.on('pluginsLoaded', function(e) {
-            //      console.log("---------------- editor pluginsLoaded ---------------", e.editor.document);
-            //    });
-            //    editor.on('insertElement', function(e) {
-            //      console.log("---------------- editor insertElement ---------------", e.editor.document);
-            //    });
             editor.on('toHtml', function (evt) {
             	//console.log("ON toHtml 10");
                 // Called when loading the html inside the text area
@@ -521,11 +419,7 @@ setTimeout
                     }
                 }
             }, null, null, 10);
-//            editor.on('toHtml', function (evt) {
-//            	//console.log("ON toHtml 15", evt);
-//            }, null, null, 15);
             editor.on('toDataFormat', function (evt) {
-                //console.log("ON toDataFormat 14 ---> ", evt.data.dataValue);
                 CKEDITOR.plugins.cssanim.cleanHighlight();
                 var pluginPath = removeDomainFromUrl(CKEDITOR.plugins.get('cssanim').path);
                 var cssStr0 = "\"";
@@ -746,7 +640,6 @@ setTimeout
         },
         // Show the "add animations" dialog
         runAddAnimElem: function (elem, res) {
-            //console.log("RUN ADD ANIMATION ------------>", elem, res);
             var animStart = res.animStart;
             var animClick = res.animClick;
             var animOver = res.animOver;
@@ -755,40 +648,6 @@ setTimeout
             var cssObj;
             if (animStart || animClick || animOver) {
             	// FAKE ELEMENTS OLD CODE
-//                if (elem.dataset.ckeRealElementType !== undefined) {
-//                    //	        var realElem = CKEDITOR.dom.element.createFromHtml(decodeURIComponent(
-//                    //	            elem.dataset.ckeRealelement ), this.document );
-//                    //	        if (realElem.$.id === '') {
-//                    //	          idCnt += 1;
-//                    //	          realElem.$.id = animIdPrefix+idCnt;
-//                    //	        }
-//                    //	        elem.id = realElem.$.id;
-//                    //	        realElem.$.classList.add(animClassPrefix+realElem.$.id);
-//                    //	        cssAnimationObject[realElem.$.id] = {};
-//                    //	        cssObj = cssAnimationObject[realElem.$.id];
-//                    //	        if (animStart) {
-//                    //	          realElem.$.classList.add(animClassPrefix+realElem.$.id+'Start');
-//                    //	          cssObj.css = '.'+animClassPrefix+realElem.$.id+'Start';
-//                    //	          cssObj.cds = "{animation: "+animStart+"}";
-//                    //	          cssObj.ral = ral;
-//                    //	        }
-//                    //	        if (animOver) {
-//                    //	          cssObj.cso = '.'+animClassPrefix+realElem.$.id+':hover';
-//                    //	          cssObj.cdo = "{animation: "+animOver+"}";
-//                    //	        }
-//                    //	        if (animClick) {
-//                    //	          cssObj.csc = '.'+animClassPrefix+realElem.$.id+':active';
-//                    //	          cssObj.cdc= "{animation: "+animClick+"}";
-//                    //	        }
-//                    //	        data = encodeURIComponent(JSON.stringify(cssObj));
-//                    //	        realElem.$.setAttribute("data-animation", data);
-//                    //	        // ?????????????????
-//                    //	//        cssObj.elem = realElem.$;
-//                    //	        elem.dataset.ckeRealelement = encodeURIComponent(realElem.$.outerHTML);
-//                    //	        elem.classList.add(animClassPrefix+elem.id);
-//                    //	        cssObj.elem = elem;
-//                } else {
-//              if (elem.dataset.ckeRealElementType === undefined) {
                 if (elem.getId() === null) {
                     elem.setAttribute('id', generateUUID());
                 }
@@ -892,7 +751,6 @@ setTimeout
 //            }
         },
 //        getSelectedElem: function () {
-//            //console.log("getSelectedElem -----------------------------------------------------------------");
 //        },
         // Get list of TAGS from element to top.
         getPathToTop: function (element) {
@@ -914,8 +772,6 @@ setTimeout
         },
         // Called when clicking the "test It" button in the add animation dialog
         cssanimAddAnimDialogTest: function (btn) {
-            //console.log('CLICK OVER');
-            //console.log(btn, this.cssanimAddAnimDialog);
             var testDiv = this.cssanimAddAnimDialog.getElementsByClassName('cke_cssanim_container_div')[0];
             var tab, sel, inp;
             var animName, animTiming, animDir, animDuration, animDelay, animIter;
@@ -935,8 +791,6 @@ setTimeout
                 if (animIter === "0") {
                     animIter = "infinite";
                 }
-                //console.log("Name ->", animName, "Timing ->", animTiming, "Direction ->", animDir);
-                //console.log("Duration ->", animDuration, "Delay ->", animDelay, "Iteration ->", animIter);
                 if (animName !== "none") {
                 	testDiv.style.animation = "none";
                 	testDiv.style.webkitAnimation = "none";
@@ -965,8 +819,6 @@ setTimeout
                 if (animIter === "0") {
                     animIter = "infinite";
                 }
-                //console.log("Name ->", animName, "Timing ->", animTiming, "Direction ->", animDir);
-                //console.log("Duration ->", animDuration, "Delay ->", animDelay, "Iteration ->", animIter);
                 if (animName !== "none") {
                 	testDiv.style.animation = "none";
                 	testDiv.style.webkitAnimation = "none";
@@ -995,8 +847,6 @@ setTimeout
                 if (animIter === "0") {
                     animIter = "infinite";
                 }
-                //console.log("Name ->", animName, "Timing ->", animTiming, "Direction ->", animDir);
-                //console.log("Duration ->", animDuration, "Delay ->", animDelay, "Iteration ->", animIter);
                 if (animName !== "none") {
                     // "bounceOut 3s linear 0s 1 normal";
                     testDiv.addEventListener('animationend', function () {
@@ -1026,8 +876,6 @@ setTimeout
             var divRes;
             var cssFile;
             function addCustomCssFunc(cssFile, css, obj) {
-                //console.log("result:", css.length);
-                //console.log(" +++++++++++++++++++++ addCustomCssFunc:", cssFile);
                 // do some cleaning !!
                 var candidates = document.getElementsByTagName('style');
                 var i, j, k;
@@ -1110,7 +958,6 @@ setTimeout
 //                setTimeout(function(){ transferComplete(evt); }, 3000);
 //            }
             function transferComplete(evt) {
-                //console.log("Le transfert est terminé.");
                 CKEDITOR.plugins.cssanim.ckEditor.container.setStyle('pointer-events', '');
 //                CKEDITOR.plugins.cssanim.ckEditor.container.setStyle('outline', '');
                 var www = CKEDITOR.plugins.cssanim.ckEditor.document.getBody();
@@ -1129,21 +976,6 @@ setTimeout
 	                    divRes.style.display = "block";
                 	}
                     alert(lang.specFile + evt.target.responseURL + lang.fileNotAvailable);
-                    //    		  // do some cleaning !!
-                    //       		  customCssFile = cssFile;
-                    //    		  CKEDITOR.plugins.cssanim.ckEditor.config.customCssFilePath = cssFile.trim();
-                    //      		  var candidates = document.getElementsByTagName('style');
-                    //      		  var i;
-                    //       		  // need to remove the css element from document if already present !!!!
-                    //        		for (i = candidates.length - 1; i >= 0; i--) {
-                    //        			if (candidates[i].title == 'cssCustom') {
-                    //        				candidates[i].parentNode.removeChild(candidates[i]);
-                    //        				break;
-                    //        			}
-                    //        		}
-                    //  			  if (CKEDITOR.plugins.cssanim.ckEditor.config.allowedAnimations.CUSTOM) {
-                    //				delete CKEDITOR.plugins.cssanim.ckEditor.config.allowedAnimations.CUSTOM;
-                    //			  }
                 }
             }
             // css file asynchronous load failed
@@ -1155,7 +987,6 @@ setTimeout
            }
             if (Object.prototype.toString.apply(obj) === "[object String]") {
                 cssFile = obj.trim();
-//                console.log(" +++++++++++++++++++++ getCustomCss From Main :", cssFile);
                 obj = null;
             } else {
                 divRes = obj.querySelector("#cssResultsDiv");
@@ -1166,7 +997,6 @@ setTimeout
                 } else {
                 	cssFile = "";
                 }
-//                console.log(" +++++++++++++++++++++ getCustomCss From Popup :", cssFile);
             }
             var ext = cssFile.substr(cssFile.lastIndexOf('.') + 1);
             //console.log("ext", ext);
@@ -1196,7 +1026,6 @@ setTimeout
                 CKEDITOR.plugins.cssanim.allAvailableAnimsCustom = [];
                 CKEDITOR.plugins.cssanim.allAvailableAnimsConflict = [];
                 //    		res = checkAnimValidity();
-                //    		//console.log("checkAnimValidity resArray ----> ", res);
                 return;
             }
             var lang = CKEDITOR.plugins.cssanim.ckEditor.lang.cssanim;
@@ -1206,31 +1035,15 @@ setTimeout
             }
             // low connection test
             //cssFile = 'http://deelay.me/1000/'+cssFile;
-            //console.log("------------------------------->>>>>>>>> START LOADING CSS File ->", cssFile);
             this.ckEditor.container.setStyle('pointer-events', 'none');
-//            this.ckEditor.container.setStyle('outline', 'red 10px solid');
             var www = this.documentEditor.getBody();
             www.setStyle('backgroundColor', 'Gainsboro ');
-            //www.setStyle('backgroundImage', 'url(bg.jpg)');
 
             var oReq = new XMLHttpRequest();
-            //    	oReq.addEventListener("load", transferComplete, false);
-            //    	oReq.addEventListener("error", transferFailed, false);
-//            oReq.onload = transferCompleteSlow;
             oReq.onload = transferComplete;
             oReq.onerror = transferFailed;
             oReq.open("GET", cssFile, true);
             oReq.send();
         }
     };
-    // window.addEventListener( "mouseover", function(e) {
-    // //console.log("mouseover", e);
-    // });
-    // window.addEventListener( "click", function(e) {
-    // console.log("click", e);
-    // return true;
-    // });
-    // window.addEventListener( "mousedown", function(e) {
-    // console.log("mousedown", e);
-    // });
 })();

@@ -291,9 +291,7 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         var initVal, ral;
         tabStr += "<div class=\"tabs\" style=\"width:600px;\">";
         tabStr += "<div class=\"tab\">";
-//        tabStr += "<input type=\"radio\" id=\"tab-Over\" name=\"tab-group-1\" >";
-//        tabStr += "<label for=\"tab-Over\">" + keyOver + "<\/label>";
-        tabStr += "<span style=\"font-weight:bold; font-size: larger;\">" + keyOver + "<\/span>";
+        tabStr += "<span style=\"font-weight:bold; font-size: larger;\">" + keyOver + "</span>";
         tabStr += "<div id=\"cssanimAddAnimDialogTabOver\" class=\"content\" style=\"height:55px;\">";
         initVal = (obj && obj.cdo) ? obj.cdo : null;
         tabStr += getTableHtml(allowedAnimations, '_O', null, initVal);
@@ -302,9 +300,7 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         tabStr += "</div> ";
         tabStr += "</div> ";
         tabStr += "<div class=\"tab\">";
-//        tabStr += "<input type=\"radio\" id=\"tab-Click\" name=\"tab-group-1\" >";
-//        tabStr += "<label for=\"tab-Click\">" + keyClick + "<\/label>";
-        tabStr += "<span style=\"font-weight:bold;font-size: larger;\">" + keyClick + "<\/span>";
+        tabStr += "<span style=\"font-weight:bold;font-size: larger;\">" + keyClick + "</span>";
         tabStr += "<div  id=\"cssanimAddAnimDialogTabClick\" class=\"content\" style=\"height:55px;\">";
         initVal = (obj && obj.cdc) ? obj.cdc : null;
         tabStr += getTableHtml(allowedAnimations, '_C', null, initVal);
@@ -313,9 +309,7 @@ CKEDITOR.dialog.add('cssanimAddAnimDialog', function (editor) {
         tabStr += "</div> ";
         tabStr += "</div> ";
         tabStr += "<div class=\"tab\">";
-//        tabStr += "<input type=\"radio\" id=\"tab-Load\" name=\"tab-group-1\" checked>";
-//        tabStr += "<label for=\"tab-Load\">" + keyLoad + "<\/label>";
-        tabStr += "<span style=\"font-weight:bold;font-size: larger;\">" + keyLoad + "<\/span>";
+        tabStr += "<span style=\"font-weight:bold;font-size: larger;\">" + keyLoad + "</span>";
         tabStr += "<div  id=\"cssanimAddAnimDialogTabLoad\" class=\"content\" style=\"height:85px;\">";
         initVal = (obj && obj.cds) ? obj.cds : null;
         ral = (obj) ? obj.ral : true;
